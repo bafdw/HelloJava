@@ -1,0 +1,347 @@
+.NET COLLECTION API:
+====================
+
+INTERFACES VOOR ENUMEREERBAARHEID:
+
+- interface IEnumerable                 
+- interface IEnumerable<T> : IEnumerable
+
+WAT IS EEN COLLECTIE (TECHNISCH GEZIEN)?:
+
+- implementeert ICollection,    IList    of IDictionary of
+- implementeert ICollection<T>, IList<T> of IDictionary<T>
+
+NAMESPACES:
+
+- System.Collections: 
+     -> "contains interfaces and classes that define various collections of objects"
+     . interface IEnumerable, ICollection, IList, IDictionary
+     . class ArrayList, HashTable, Queue, Stack
+- System.Collections.Generic:
+     -> contains interfaces and classes that define generic collections
+     . interface IEnumerable<T>, ICollection<T>, IList<T>, IDictionary<T>
+     . class List<T>, Queue<T>, Stack<T>, LinkedList<T>, Dictionary<TKey, TValue>
+- System.Collections.ObjectModel:
+     . class Collection<T>
+
+INTERFACES VOOR COLLECTIES:
+
+- interface ICollection : IEnumerable
+- interface IList       : ICollection
+- interface IDictionary : ICollection
+
+- interface ICollection<T>            : IEnumerable<T>
+- interface IList<T>                  : ICollection<T>
+- interface IDictionary<TKey, TValue> : ICollection<T>
+
+GENERIC INTERFACE MEMBERS:
+
+- IEnumerable: GetEnumerator()
+- IEnumerable<T>: GetEnumerator()
+
+- ICollection<T>: Count {get}, IsReadOnly {get}, Add(item), Remove(item), Clear(), Contains(item), CopyTo(array) 
+
+- IList<T>: this[index] {get+set}, Insert(index, item), RemoveAt(index), IndexOf(item)
+- IDictionary<TKey, TValue>: this[key] {get+set}, Keys, Values, Add(key, value), Remove(key), Contains(key)
+
+Een System.NotSupportedException treedt op bij het gebruik van members als Add, Remove, RemoveAt, Clear en this{set} indien de IsReadOnly property True oplevert.
+
+GENERIC INTERFACE IMPLEMENTATIES:
+
+- IEnumerable<T>: List<T>, Collection<T>, Queue<T>, Stack<T>, LinkedList<T>, Dictionary<TKey, TValue>
+- ICollection<T>: List<T>, Collection<T>,                     LinkedList<T>, Dictionary<TKey, TValue>
+- IList<T>      : List<T>, Collection<T>
+- IDictionary<T>:                                                            Dictionary<TKey, TValue>
+
+In het geval van Dictionary<TKey, TValue> is T in de IEnumerable<T> en ICollection<T> invulling een KeyValuePair<TKey, TValue>, of dus IEnumerable<KeyValuePair<TKey, TValue>> en ICollection<KeyValuePair<TKey, TValue>>.
+
+Zelfs Array implementeert de IEnumerable<T>, ICollection<T> en IList<T> interfaces.  In dat geval zal echter bij manipulaties (Add/Remove/RemoveAt/Clear/this{set}) een NotSupportedException optreden.  Maw:
+int[] eenArray = new int[] { 10, 20, 30 };
+ICollection eenCollection = eenArray;
+Console.Write(eenCollection.IsReadOnly == true); // true
+
+"Starting with the .NET Framework 2.0, the Array class implements the System.Collections.Generic.IList<T>, System.Collections.Generic.ICollection<T>, and System.Collections.Generic.IEnumerable<T> generic interfaces. The implementations are provided to arrays at run time, ... The key thing to be aware of when you cast an array to one of these interfaces is that members which add, insert, or remove elements throw NotSupportedException."
+
+"Starting with .NET 4.5, arrays also implement the interfaces System.Collections.Generic.IReadOnlyList<T> and System.Collections.Generic.IReadOnlyCollection<T>."
+
+IReadOnlyCollection<T> : IEnumerable<T> + Count {get}
+IReadOnlyList<T>       : IReadOnlyCollection<T> + Index[index] {get}
+
+Een IReadOnlyList<T> implementerend type als System.Collections.ObjectModel.ReadOnlyCollection heeft members als Count {get}, Contains(item), CopyTo(array), IndexOf(item), this[index] {get} en protected IList<T> Items {get}.
+Je kan enkel een instantie aanmaken op basis van een IList<T>:
+            List<int> li = new List<int>();
+            ReadOnlyCollection<int> roci1 = li.AsReadOnly(); // of
+            ReadOnlyCollection<int> roci2 = new ReadOnlyCollection<int>(li);
+
+namespace ReadOnlyCollections
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+
+    class Program
+    {
+        static void Main()
+        {
+            var spel1 = new Spel();
+
+            //De Add() method limiteert het aantal spelers tot 2, 
+            //de namen moeten ook uniek zijn.
+            spel1.Add("Jan");
+            spel1.Add("Jan");
+            spel1.Add("Piet");
+            spel1.Add("Pol");
+            Print(spel1.Spelers);
+
+            //Indien ReadOnlyCollection opgeleverd:
+            spel1.Spelers.Add("Pol"); // System.NotSupportedException: 'Collection is read-only.'
+            Print(spel1.Spelers);
+
+            Console.ReadLine();
+        }
+        static void Print<T>(IEnumerable<T> waardes)
+        {
+            foreach (T waarde in waardes)
+                Console.WriteLine("- " + waarde.ToString());
+            Console.WriteLine();
+        }
+    }
+
+    class Zet { }
+    class Spel : Collection<Zet>
+    {
+        private IList<string> SpelerItems = new List<string>();
+        public void Add(string speler)
+        {
+            if (SpelerItems.Count < 2 && !SpelerItems.Contains(speler))
+                SpelerItems.Add(speler);
+        }
+        public IList<string> Spelers
+            => new ReadOnlyCollection<string>(SpelerItems); // hier exception
+            //=> SpelerItems; // hiermee niet (wel niet beschermd voor edits)
+    }
+}
+
+TYPISCHE MEMBERS IN PUBLIEKE INTERFACES VAN ARRAY, COLLECTION<T> EN LIST<T>:
+
+- Array: 
+    -> this[], CopyTo()
+    -> LINQ to object capaciteiten
+- Collection<T> voegt toe (aan deze van Array): 
+    -> Add(), Insert(), Remove(), RemoveAt(), Clear(), Contains(), IndexOf()
+    -> virtual: InsertItem(), SetItem(), RemoveItem(), ClearItems()
+- List<T> voegt toe (aan deze van Array): 
+    -> Add(), Insert(), Remove(), RemoveAt(), Clear(), Contains(), IndexOf()
+    -> AddRange(), InsertRange(), 
+    -> BinarySearch(), Sort(), Reverse(), 
+    -> Exists(), TrueForAll(), Find(), FindIndex(), FindLast(), FindLastIndex(), FindAll()
+    -> ForEach(), RemoveAll()
+
+ABSTRACTIES EN KEUZE:
+
+- werk met de generic (typesafe) varianten (tenzij je voor .NET FW 1.1 zou ontwikkelen),  
+  geen gebruik maken van weakly typed (werken met Object elementen) collectietypes als ArrayList (ipv List<T>), Queue (ipv Queue<T>), Stack (ipv Stack<T>) of HashTable (ipv Dictionary<TKey, TValue>)
+
+- sequentiële lijst waar element verwijderd wordt na het opvragen:
+     -> Queue<T> en Stack<T>
+
+- toegang tot elementen in specifieke volgorde:
+     -> Queue<T> (fifo), Stack<T> (lifo) en LinkedList<T> (traversal-toegang)
+ 
+- toegang tot element via positie (index):
+     -> List<T>
+- toegang tot element via sleutel:    
+     -> Dictionary<TKey, TValue>
+
+- elk element is één waarde:
+     -> ICollection<T>, IList<T> implementaties
+- elk element is combinatie van één sleutel en één waarde:
+     -> IDictonary<TKey, TValue> implementaties
+
+TYPISCHE OPBOUW VAN EIGEN COLLECTIETYPES:
+
+namespace EigenCollectieTypesDefiniëren
+{
+    // Enkele voorbeelden hoe je dat zou kunnen doen:
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    namespace CollectionIntAfgeleide
+    {
+        class Getallen : Collection<int>
+        {
+            // De volledige publieke interface is niet meer in eigen handen, je erft
+            // immers ook tal van publieke members over. (kan een nadeel zijn als je dit 
+            // niet wenst)
+
+            // Je wordt gespaard van het implementeren van typisch toevoegen, verwijderen, 
+            // opzoeken, ... logica.
+            // Als je dat wil dan kan je via herdefinities van InsertItem(), SetItem(), 
+            // RemoveItem() en ClearItems() extra sturingslogica toevoegen:
+            protected override void RemoveItem(int index)
+            {
+                // doe nog iets extras bij het verwijderen van een element op bepaalde positie
+            }
+
+            // Toevoegen wat ontbreekt aan implementaties of in de publieke interface.
+            // Verwijzen naar de overgeërfde interne/onderliggende lijst via 
+            // de overgeërfde protected IList<T> Items property:
+            public int Som()
+            {
+                int som = 0;
+                IList<int> interneLijst = Items;
+                foreach (int g in interneLijst) som += g;
+                // gezien Collection<T> IEnumerable<T> is, kunnen vorige 2 regels ook simpelweg als:
+                // foreach (int g in this) som += g;
+                return som;
+            }
+        }
+        // Als het ok is de publieke interface van Collection<T> over te nemen (het nadeel
+        // dus geen nadeel is), dan is deze aanpak (gezien de eenvoud) te verkiezen boven 
+        // de het manueel implementeren van de ICollection<T> of IList<T> interfaces (wat veel meer
+        // werk is, zie hieronder).
+    }
+    namespace IListIntImplementatie
+    {
+        class Getallen : IList<int>
+        {
+            // Typisch gebruik makende van een onderliggende collectie:
+            protected IList<int> Items = new List<int>() { 10, 20, 30 };
+
+            // Impliciete (public) of expliciete (private) implementatie,
+            // naar gelang de gewenste publieke interface:
+            public int this[int index]
+            {
+                get { return Items[index]; }
+                set { Items[index] = value; }
+            }
+            public int Count => Items.Count;
+            public bool IsReadOnly => false;
+
+            public void CopyTo(int[] array, int arrayIndex) => Items.CopyTo(array, arrayIndex);
+
+            public void Add(int item) => Items.Add(item);
+            public void Insert(int index, int item) => Items.Insert(index, item);
+            public bool Remove(int item) => Items.Remove(item);
+            public void RemoveAt(int index) => Items.RemoveAt(index);
+            public void Clear() => Items.Clear();
+
+            public bool Contains(int item) => Items.Contains(item);
+            public int IndexOf(int item) => Items.IndexOf(item);
+
+            public IEnumerator<int> GetEnumerator() => Items.GetEnumerator();
+            IEnumerator IEnumerable.GetEnumerator() => Items.GetEnumerator();
+
+            // Toevoegen wat ontbreekt aan implementaties of in de publieke interface:
+            public int Som()
+            {
+                int som = 0;
+                foreach (int g in Items) som += g;
+                // of: foreach (int g in this) som += g;
+                return som;
+            }
+
+            // De volledige publieke interface kan hier zelf bijgevolg worden samengesteld,
+            // wat een voordeel kan zijn als je wil afwijken van deze van bestaande collectietypes.
+        }
+    }
+    namespace ListIntAfgeleide
+    {
+        class Getallen : List<int>
+        {
+            // De volledige publieke interface is niet meer in eigen handen, je erft
+            // immers ook tal van publieke members over.
+
+            // Je wordt gespaard van het implementeren van typisch toevoegen, verwijderen, 
+            // opzoeken, ... logica.
+
+            // Toevoegen wat ontbreekt aan implementaties of in de publieke interface.
+            // Verwijzen naar de overgeërfde interne/onderliggende lijst kan niet, je kan
+            // uiteraard wel op de instantie zelf inwerken:
+            public int Som()
+            {
+                int som = 0;
+                //IList<int> interneLijst = Items; // kan niet
+                foreach (int g in this) som += g;
+                return som;
+            }
+        }
+        // Alhouwel het technisch perfect mogelijk is van List<T> (in tegenstelling tot 
+        // Collection<T>) over te erven, is List<T> niet intrensic gebouwd voor dat doeleinde.
+        // - Zo is er bv geen mogelijkheid de interne/onderliggende collectie (iets als een 
+        // 'protected IList<T> Items' of dergelijke te gaan benaderen).
+        // - Zo zijn er bv geen virtual InsertItem(), SetItem(), RemoveItem() en ClearItems()
+        // methods aanwezig (wat wel nog het geval was bij Collection<T>).
+        // Het enigste voordeel van het overerven van List<T> (ipv Collection<T>) is dat je 
+        // meteen in de interface/implemenatie beschikt over methods als AddRange(), InsertRange(),
+        // BinarySearch(), Sort(), Reverse(), Exists(), TrueForAll(), Find(), FindIndex(), 
+        // FindLast(), FindLastIndex(), FindAll(), ForEach() en RemoveAll().
+    }
+}
+
+GENERIC INTERFACE IMPLEMENTATIES VOORBEELD:
+
+namespace CollectieImplementatiesVsInterfaces
+{
+    // Welke collectietypes implementeren welke interface?
+    // ...een stukje code die het voor ons uitzoek
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var eenArrayVanInts = new int[0];
+            var eenArrayListVanObjects = new ArrayList();
+            var eenListVanInts = new List<int>();
+            var eenCollectionVanInts = new Collection<int>();
+            var eenQueueVanObjects = new Queue();
+            var eenQueueVanInts = new Queue<int>();
+            var eenStackVanObjects = new Stack();
+            var eenStackVanInts = new Stack<int>();
+            var eenLinkedListVanInts = new LinkedList<int>();
+            var eenDictionaryVanObjects = new Hashtable();
+            var eenDictionaryVanIntsEnStrings = new Dictionary<int, string>();
+
+            PrintImplementerendeInterfaces(eenArrayVanInts);
+            PrintImplementerendeInterfaces(eenArrayListVanObjects);
+            PrintImplementerendeInterfaces(eenListVanInts);
+            PrintImplementerendeInterfaces(eenCollectionVanInts);
+            PrintImplementerendeInterfaces(eenQueueVanObjects);
+            PrintImplementerendeInterfaces(eenQueueVanInts);
+            PrintImplementerendeInterfaces(eenStackVanObjects);
+            PrintImplementerendeInterfaces(eenStackVanInts);
+            PrintImplementerendeInterfaces(eenLinkedListVanInts);
+            PrintImplementerendeInterfaces(eenDictionaryVanObjects);
+            PrintImplementerendeInterfaces(eenDictionaryVanIntsEnStrings);
+
+            Console.ReadLine();
+        }
+        static void PrintImplementerendeInterfaces(object coll)
+        {
+            Console.WriteLine($@"{coll.GetType().ToString()}:");
+            Console.WriteLine();
+            Console.WriteLine($"IEnumerable                             : {coll is IEnumerable}");
+            Console.WriteLine($"ICollection                             : {coll is ICollection}");
+            Console.WriteLine($"IList                                   : {coll is IList}");
+            Console.WriteLine();
+            Console.WriteLine($"IEnumerable<int>                        : {coll is IEnumerable<int>}");
+            Console.WriteLine($"ICollection<int>                        : {coll is ICollection<int>}");
+            Console.WriteLine($"IList<T>                                : {coll is IList<int>}");
+            Console.WriteLine();
+            Console.WriteLine($"IDictionary                             : {coll is IDictionary}");
+            Console.WriteLine($"IDictionary<TKey, TValue>               : {coll is IDictionary<int, string>}");
+            Console.WriteLine($"IEnumerable<KeyValuePair<TKey, TValue>> : {coll is IEnumerable<KeyValuePair<int, string>>}");
+            Console.WriteLine($"ICollection<KeyValuePair<TKey, TValue>> : {coll is ICollection<KeyValuePair<int, string>>}");
+            Console.WriteLine("----------------------------------------------------------");
+        }
+    }
+}
+
+OVERIGE BRONNEN:
+msdn - Commonly Used Collection Types - https://msdn.microsoft.com/en-us/library/0ytkdh4s(v=vs.110).aspx
+msdn - Collections and Data Structures - https://msdn.microsoft.com/en-us/library/7y3x785f(v=vs.110).aspx
+msdn - Selecting a Collection Class - https://msdn.microsoft.com/en-us/library/6tc79sx1(v=vs.110).aspx
+msdn - System.Collections.ObjectModel Namespace - https://msdn.microsoft.com/en-us/library/system.collections.objectmodel(v=vs.110).aspx
