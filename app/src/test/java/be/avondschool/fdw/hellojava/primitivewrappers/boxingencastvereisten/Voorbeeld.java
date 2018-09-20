@@ -1,8 +1,8 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.primitivewrappers.boxingencastvereisten;
 
 import org.junit.Test;
 
-public class VoorbeeldPrimitiveWrappers {
+public class Voorbeeld {
 
     @Test public void main() {
         boxing();
@@ -25,10 +25,5 @@ public class VoorbeeldPrimitiveWrappers {
         Integer x = 123;
         Integer y = x * 2; // geen cast vereist
         System.out.println("y: " + y);
-
-        //In C# wel vereist:
-        //  Object box = 123;
-        //  //Console.WriteLine(box * 2);    // compilefout
-        //  Console.WriteLine((int)box * 2); // met cast
     }
 }

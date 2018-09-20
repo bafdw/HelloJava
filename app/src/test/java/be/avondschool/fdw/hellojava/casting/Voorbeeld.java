@@ -1,16 +1,16 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.casting;
 
 import org.junit.Test;
-
 import java.util.List;
 
-public class VoorbeeldCastOpDynamischTypeCheck {
+public class Voorbeeld {
     @Test public void main(){
         Voertuig ps = new RijdendVoertuig();
         //List<String> wielen = ps.getWielen();          // -> compile-error
         if (ps instanceof RijdendVoertuig) { // dynamic type check
-            List<String> courses = ((RijdendVoertuig) ps).getWielen(); // cast operator
+            List<String> wielen = ((RijdendVoertuig) ps).getWielen(); // cast operator
         }
+
         Klasse1 k1 = new Klasse2();
         k1.Test();
     }

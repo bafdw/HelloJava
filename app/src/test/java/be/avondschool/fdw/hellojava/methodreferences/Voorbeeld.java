@@ -1,13 +1,12 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.methodreferences;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+
+import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
 
 //Oracle - Java Documentation - The Java Tutorials - Method References:
 //   https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html
@@ -15,7 +14,7 @@ import java.util.function.Consumer;
 //Oracle - Java Documentation - The Java Tutorials - Default and static Method interface Methods:
 //   https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html
 
-public class VoorbeeldMethodReferences {
+public class Voorbeeld {
     @Test public void main(){
         Person man1 = new Person();    man1.setName("John");
         Person woman1 = new Person();  woman1.setName("Jane");
@@ -40,13 +39,13 @@ public class VoorbeeldMethodReferences {
 
         //Kan je, door middel van een "method reference", ook wijzen naar een
         //bestaande (benoemde) method:
-        Consumer<Person> action = VoorbeeldMethodReferences::printPerson;
+        Consumer<Person> action = Voorbeeld::printPerson;
         //Voor de :: staat de klasse-naam, van de klasse waarin de
         //static method is gedefinieerd die wordt vermeld na de ::.
         people.forEach(action);
         System.out.println();
 
-        people.forEach(VoorbeeldMethodReferences::printPerson);
+        people.forEach(Voorbeeld::printPerson);
 
         //Net zo goed kan je verwijzen naar een instance method van een bepaalde
         //instantie, in dat geval in de vorm 'instance-name::instance-method-name'.

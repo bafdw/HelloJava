@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.genericiteit.wildcards;
 
 import org.junit.Test;
 
@@ -7,28 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/*
-What is the difference between a wildcard bound and a type parameter bound?
-
-A wildcard can have only one bound, while a type parameter can have
-several bounds. A wildcard
-can have a lower or an upper bound, while there is no such thing as a
-lower bound for a type parameter.
-
-Wildcard bounds and type parameter bounds are often confused, because
-they are both called bounds
-and have in part similar syntax:
-
-  type parameter bound     T extends Class & Interface1 & … & InterfaceN
-
-  wildcard bound
-      upper bound          ? extends SuperType
-      lower bound          ? super   SubType
-
-bron: [StackOverflow: Java: bounded wildcards or bounded type parameter?: https://stackoverflow.com/questions/3486689/java-bounded-wildcards-or-bounded-type-parameter]
- */
-
-public class VoorbeeldGenericiteitBoundedWildcards {
+public class Voorbeeld {
     @Test public void main() {
         Wagen wagen1 = new Wagen() {{setBouwjaar(2004);}};
         Wagen wagen2 = new Wagen() {{setBouwjaar(2006);}};
@@ -44,9 +23,9 @@ public class VoorbeeldGenericiteitBoundedWildcards {
         printGemiddeldBouwjaar(wagens);
         printGemiddeldBouwjaar(fietsen);
 
-        voegWagenToe(wagens); System.out.println("nieuw aantal: " + wagens.size());
-        voegWagenToe(rijtuigen); System.out.println("nieuw aantal: " + rijtuigen.size());
-        //voegWagenToe(fietsen); // kan niet
+        voegWagenToeAanCollectie(wagens); System.out.println("nieuw aantal: " + wagens.size());
+        voegWagenToeAanCollectie(rijtuigen); System.out.println("nieuw aantal: " + rijtuigen.size());
+        //voegWagenToeAanCollectie(fietsen); // kan niet
     }
     static void printGemiddeldBouwjaar(List<? extends Rijtuig> collectie)
     {
@@ -57,7 +36,7 @@ public class VoorbeeldGenericiteitBoundedWildcards {
         int jaargem = jaartotaal / collectie.size();
         System.out.println("Gemiddeld bouwjaar: " + jaargem);
     }
-    static void voegWagenToe(List<? super Wagen> collectie)
+    static void voegWagenToeAanCollectie(List<? super Wagen> collectie)
     {
         collectie.add(new Wagen() {{setBouwjaar(LocalDate.now().getYear());}});
     }

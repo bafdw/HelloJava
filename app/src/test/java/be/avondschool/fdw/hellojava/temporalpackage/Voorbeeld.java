@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.temporalpackage;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 
-public class VoorbeeldTemporalInformatie {
+public class Voorbeeld {
     @Test public void main() {
         LocalTime thisSec = LocalTime.now();
         System.out.println("Nu: " + thisSec.getHour() + ":" + thisSec.getMinute() + ":" + thisSec.getSecond());

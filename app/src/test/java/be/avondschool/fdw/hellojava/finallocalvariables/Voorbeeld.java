@@ -1,8 +1,8 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.finallocalvariables;
 
 import org.junit.Test;
 
-public class VoorbeeldFinalLokaleVariabelen {
+public class Voorbeeld {
     @Test public void main(){
         int x = 3;
         int y = 4;

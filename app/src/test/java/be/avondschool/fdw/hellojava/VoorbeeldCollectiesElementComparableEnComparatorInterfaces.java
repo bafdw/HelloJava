@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
+
 public class VoorbeeldCollectiesElementComparableEnComparatorInterfaces {
     @Test public void main(){
         Person man1 = new Person();    man1.setName("John");

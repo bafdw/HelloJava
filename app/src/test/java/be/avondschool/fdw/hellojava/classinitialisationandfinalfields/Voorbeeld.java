@@ -1,12 +1,8 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.classinitialisationandfinalfields;
 
 import org.junit.Test;
 
-/**
- * Created by fdw on 27/09/2017.
- */
-
-public class VoorbeeldInitialisatieBlockEnFinalVeld {
+public class Voorbeeld {
     @Test public void main(){
         KlasseA objectA = new KlasseA();
         System.out.println("veldX: " + objectA.getVeldX());
@@ -15,12 +11,11 @@ public class VoorbeeldInitialisatieBlockEnFinalVeld {
         //Bij eerste gebruik, als
         KlasseB.doeIets(); // of instantiëring: KlasseB test2 = new KlasseB();
         //wordt nog eerst het static initialisatie blok éénmalig uitgevoerd.
-        KlasseB.doeIets();
     }
 }
 class KlasseA {
     private final int veldX = 1; // hier initialiseren
-    private int veldY = 2;           // hier initialiseren
+    private int veldY = 2;       // hier initialiseren
 
     { // dit is een initialisatie blok
         // - deze wordt uitgevoerd na veld-initialisaties

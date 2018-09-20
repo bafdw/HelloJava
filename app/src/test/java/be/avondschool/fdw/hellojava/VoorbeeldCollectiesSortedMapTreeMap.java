@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
+
 //Inteface java.util.SortedMap<K,V>
 //   https://docs.oracle.com/javase/8/docs/api/java/util/SortedMap.html
 //Extends Map<K,V>

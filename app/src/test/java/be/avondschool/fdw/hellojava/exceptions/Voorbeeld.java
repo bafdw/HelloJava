@@ -1,11 +1,8 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.exceptions;
 
 import org.junit.Test;
 
-//Oracle - Java Documentation - The Java Tutorials - Lesson: Exceptions:
-//   https://docs.oracle.com/javase/tutorial/essential/exceptions/index.html
-
-public class VoorbeeldCheckedExceptions {
+public class Voorbeeld {
     @Test public void main() {
         Artikel artikel1 = new Artikel();
 

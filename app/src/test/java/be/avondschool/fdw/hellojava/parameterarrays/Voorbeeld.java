@@ -1,8 +1,8 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.parameterarrays;
 
 import org.junit.Test;
 
-public class VoorbeeldParameterArray {
+public class Voorbeeld {
 
     @Test public void main(){
         printSom(10,20,30);

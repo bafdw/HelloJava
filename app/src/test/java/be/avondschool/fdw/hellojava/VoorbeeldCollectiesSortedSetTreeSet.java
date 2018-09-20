@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
+
 //Interface java.util.SortedSet<E>
 //   https://docs.oracle.com/javase/8/docs/api/java/util/SortedSet.html
 //Extends Set<E>

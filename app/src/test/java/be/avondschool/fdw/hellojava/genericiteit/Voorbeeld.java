@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.genericiteit;
 
 import android.support.annotation.NonNull;
 
@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//Oracle - Java Documentation - The Java Tutorials - Lesson: Generics (Updated):
-//   https://docs.oracle.com/javase/tutorial/java/generics/index.html
-
-public class VoorbeeldGenericiteit {
+public class Voorbeeld {
     @Test public void main(){
         //ArrayList<E> implements List<E>:
         //"Type parameter" (formeel generisch parametertype) E en
@@ -39,7 +36,7 @@ public class VoorbeeldGenericiteit {
         Factuurregel fr2 = new Factuurregel() {{setProdukt(p1); setAantal(3);}};
         fr1.verhoogMet(fr2);
         System.out.println("aantal fr1 = " + fr1.getAantal()); // 5
-        System.out.println("totaalPrijs fr1 = " + fr1.totaalPrijs());
+        System.out.println("totaalPrijs fr1 = " + fr1.totaalPrijs()); // 500
         Temperatuur t1 = new Temperatuur(){{setGraden(10);}};
         Temperatuur t2 = new Temperatuur(){{setGraden(20);}};
         t1.verhoogMet(t2);
@@ -50,21 +47,21 @@ public class VoorbeeldGenericiteit {
         Temperatuur kleinste = Eerste(t1, t2, t3);
         System.out.println("eerste = " + kleinste.getGraden()); // 5
         System.out.println("eerste = " + Eerste("b;a;c".split(";")));
-        Eerste(new Boek(), new Boek());
+        //Eerste(new Boek(), new Boek());
         //
         //List<Integer> li = Arrays.asList(1, 2, 3);
         List<Integer> li = new ArrayList<>(); li.add(1); li.add(2); li.add(3);
         List<Double> ld = Arrays.asList(1.2, 2.3, 3.5);
         //
         printLijstV1(li); // kan
-        //printLijstV2(li); // kan niet, List<Integer> is geen afgeleide van List<Object>
+        //printLijstV0(li); // kan niet, List<Integer> is geen afgeleide van List<Object>
         //
         System.out.println("sum = " + sumOfList(li));
         System.out.println("sum = " + sumOfList(ld));
     }
 
     //Met een (upper-bounded) type parameter (T extends ...):
-    //extends kan zowel wijzen op "erft over van" als "implementeert":
+    //extends kan hier zowel wijzen op "erft over van" als "implementeert":
     static <T extends Comparable<T>> T Eerste(T... reeks){
         if (reeks.length > 0) {
             T eerste = reeks[0];
@@ -79,6 +76,12 @@ public class VoorbeeldGenericiteit {
         return null;
     }
 
+
+    static void printLijstV0(List<Object> lijst){
+        for (Object elem : lijst)
+            System.out.println(elem + " ");
+        System.out.println();
+    }
     //Unbounded wildcard:
     static void printLijstV1(List<?> lijst) {
         for (Object elem: lijst)
@@ -87,11 +90,6 @@ public class VoorbeeldGenericiteit {
     }
     // kan ook als: static <T> void printLijstV1(List<T> lijst) {
     //                  for (T elem: lijst) ...
-    static void printLijstV2(List<Object> lijst){
-        for (Object elem : lijst)
-            System.out.println(elem + " ");
-        System.out.println();
-    }
 
     //Met een (upper-bounded) wildcard (?):
     static double sumOfList(List<? extends Number> list) {
@@ -100,19 +98,18 @@ public class VoorbeeldGenericiteit {
             s += n.doubleValue();
         return s;
     }
-    //kan ook als: static <T extends Number> double sumOfList(List<T> list) {
+    //kan ook als: static <T extends Number> double sumOfList(List<T> list) {...
 }
 
 interface Verhoogbaar<T> {
     void verhoogMet(T value);
 }
 
-class Boek implements Comparable<Boek> {
-
-    @Override
-    public int compareTo(@NonNull Boek boek) {
-        return 0;
-    }
+class Boek /* implements Comparable<Boek> */ {
+//    @Override
+//    public int compareTo(@NonNull Boek boek) {
+//        return 0;
+//    }
 }
 
 class Temperatuur implements Verhoogbaar<Temperatuur>, Comparable<Temperatuur> {
