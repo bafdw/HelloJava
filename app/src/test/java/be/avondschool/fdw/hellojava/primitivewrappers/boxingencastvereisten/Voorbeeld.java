@@ -5,6 +5,8 @@ import org.junit.Test;
 public class Voorbeeld {
 
     @Test public void main() {
+        long l = 123L;
+        int  i= (int)l;
         boxing();
         geenCastsVereist();
     }
@@ -18,11 +20,11 @@ public class Voorbeeld {
         Integer m = Integer.valueOf("123"); // expliciete boxing vanuit string
 
         int n = Integer.parseInt("123"); // conversie vanuit string
-        String o = String.valueOf(123);     // conversie naar string
+        String o = String.valueOf(123);    // conversie naar string
     }
 
     private static void geenCastsVereist() {
-        Integer x = 123;
+        Integer x = 5;
         Integer y = x * 2; // geen cast vereist
         System.out.println("y: " + y);
     }

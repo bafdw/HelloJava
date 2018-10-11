@@ -1,27 +1,20 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.collecties.queue;
 
 import org.junit.Test;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-//Interface java.util.Queue<E>:
-//   https://docs.oracle.com/javase/8/docs/api/java/util/Queue.html
-//Extends: Collection<E>
-//
 //Insertion: (=> exception vs false/null)
 //- .add vs .offer (bij volle capacity-restrictive queue)
 //Extraction/inspection (head): (=> exception vs null/false)
 //- .remove/.element vs .poll/.peek (bij lege queue)
 
-//Class java.util.LinkedList<E>:
-//   https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html
-//Implements List<E>, Deque<E>
-//
+//LinkedList<E>:
 //All of the operations perform as could be expected for a doubly-linked
 //list. Operations that index into the list will traverse the list from the
 //beginning or the end, whichever is closer to the specified index.
-public class VoorbeeldCollectiesQueueLinkedList {
+public class    VoorbeeldCollectiesQueueLinkedList {
     @Test public void main(){
         Queue<String> ll = new LinkedList<String>(); // implementeert ook Deque
         ll.offer("Informatica");

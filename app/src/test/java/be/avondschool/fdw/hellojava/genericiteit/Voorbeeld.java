@@ -26,8 +26,7 @@ public class Voorbeeld {
         //List<int> lijst2 = new ArrayList<int>(); // kan niet (compilefout)
         List<Integer> lijst2 = new ArrayList<Integer>(); // kan dan weer wel
 
-        //Diamond syntax (<> zonder type parameter)
-        //=> type wordt afgeleid (type inference):
+        //Type inference (indien <> geen type parameter vermelden):
         List<String> lijst3 = new ArrayList<>();
 
         //Onderstaande Verhoogbaar<T> als voorbeeld van generiek datatype
@@ -54,7 +53,9 @@ public class Voorbeeld {
         List<Double> ld = Arrays.asList(1.2, 2.3, 3.5);
         //
         printLijstV1(li); // kan
+        printLijstV1(ld); // kan
         //printLijstV0(li); // kan niet, List<Integer> is geen afgeleide van List<Object>
+        //printLijstV0(ld); // kan niet, List<Double> is geen afgeleide van List<Object>
         //
         System.out.println("sum = " + sumOfList(li));
         System.out.println("sum = " + sumOfList(ld));
@@ -107,7 +108,7 @@ interface Verhoogbaar<T> {
 
 class Boek /* implements Comparable<Boek> */ {
 //    @Override
-//    public int compareTo(@NonNull Boek boek) {
+//    public int compareTo(Boek boek) {
 //        return 0;
 //    }
 }

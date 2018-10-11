@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.innerclasses.methodreferences;
 
 import org.junit.Test;
 
@@ -33,9 +33,6 @@ class Overschrijving {
     private String doelrekening;
     public Iban getDoelrekening() { return new Iban(doelrekening); }
 
-    private String mededeling;
-    public String getMededeling() { return mededeling; }
-
     public boolean IsInternationaal() {
         Comparator<Iban> lcc = new LandcodeComparer();
         return (lcc.compare(getBronrekening(), getDoelrekening()) != 0);
@@ -67,9 +64,6 @@ class LandcodeComparer implements Comparator<Iban> {
 //
 //    private String doelrekening;
 //    public Iban getDoelrekening() { return new Iban(doelrekening); }
-//
-//    private String mededeling;
-//    public String getMededeling() { return mededeling; }
 //
 //    public boolean IsInternationaal() {
 //        Comparator<Iban> lcc = new LandcodeComparer();
@@ -104,9 +98,6 @@ class LandcodeComparer implements Comparator<Iban> {
 //    private String doelrekening;
 //    public Iban getDoelrekening() { return new Iban(doelrekening); }
 //
-//    private String mededeling;
-//    public String getMededeling() { return mededeling; }
-//
 //    public boolean IsInternationaal() {
 //        class LandcodeComparer implements Comparator<Iban> {
 //            @Override public int compare(Iban iban1, Iban iban2) {
@@ -140,9 +131,6 @@ class LandcodeComparer implements Comparator<Iban> {
 //    private String doelrekening;
 //    public Iban getDoelrekening() { return new Iban(doelrekening); }
 //
-//    private String mededeling;
-//    public String getMededeling() { return mededeling; }
-//
 //    public boolean IsInternationaal() {
 //        Comparator<Iban> lcc = new Comparator<Iban>() {
 //            @Override public int compare(Iban iban1, Iban iban2) {
@@ -174,9 +162,6 @@ class LandcodeComparer implements Comparator<Iban> {
 //
 //    private String doelrekening;
 //    public Iban getDoelrekening() { return new Iban(doelrekening); }
-//
-//    private String mededeling;
-//    public String getMededeling() { return mededeling; }
 //
 //    public boolean IsInternationaal() {
 //        Comparator<Iban> lcc =
@@ -210,9 +195,6 @@ class LandcodeComparer implements Comparator<Iban> {
 //
 //    private String doelrekening;
 //    public Iban getDoelrekening() { return new Iban(doelrekening); }
-//
-//    private String mededeling;
-//    public String getMededeling() { return mededeling; }
 //
 //    public boolean IsInternationaal() {
 //        Comparator<Iban> lcc = Iban::compare;

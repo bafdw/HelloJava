@@ -6,11 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-//Oracle - Java Documentation - The Java Tutorials - Nested Classes:
-//   https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
-//Oracle - Java Documentation - The Java Tutorials - Inner Classes:
-//   https://docs.oracle.com/javase/tutorial/java/javaOO/innerclasses.html
-
 public class Voorbeeld {
     @Test public void main() {
         Person man1 = new Person();    man1.setName("John");

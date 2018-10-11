@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava.methodreferences;
+package be.avondschool.fdw.hellojava.innerclasses.methodreferences;
 
 import org.junit.Test;
 
@@ -7,12 +7,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
-
-//Oracle - Java Documentation - The Java Tutorials - Method References:
-//   https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html
-
-//Oracle - Java Documentation - The Java Tutorials - Default and static Method interface Methods:
-//   https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html
 
 public class Voorbeeld {
     @Test public void main(){

@@ -20,7 +20,7 @@ class Klasse1 {
 }
 class Klasse2 extends Klasse1 {
     @Override public void Test() {
-        super.Test();
+        //super.Test();
         System.out.println("Klasse2.Test");}
 }
 class Voertuig {

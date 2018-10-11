@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.collecties;
 
 import org.junit.Test;
 
@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//Oracle - Java Documentation - The Java Tutorials - Wrapper Implementations:
-//   https://docs.oracle.com/javase/tutorial/collections/implementations/wrapper.html
-//
+//Wrapper Implementations:
 //public static <T> Collection<T> unmodifiableCollection(Collection<? extends T> c);
 //public static <T> Set<T> unmodifiableSet(Set<? extends T> s);
 //public static <T> List<T> unmodifiableList(List<? extends T> list);
 //public static <K,V> Map<K, V> unmodifiableMap(Map<? extends K, ? extends V> m);
 //public static <T> SortedSet<T> unmodifiableSortedSet(SortedSet<? extends T> s);
 //public static <K,V> SortedMap<K, V> unmodifiableSortedMap(SortedMap<K, ? extends V> m);
-public class VoorbeeldCollectiesUnmodWrap {
+
+public class VoorbeeldUnmodWrap {
     @Test public void main(){
         Dag dag1 = new Dag();
         try {
@@ -29,7 +28,7 @@ public class VoorbeeldCollectiesUnmodWrap {
 
         //Onderstaande 2 calls leveren bij (*) een exceptie op:
         dag1.getAfspraken().set(0, new Afspraak(14, "Barbier"));// UnsupportedOperationException
-        //dag1.getAfspraken().add(new Afspraak(14, "Voetbal")); // UnsupportedOperationException
+        dag1.getAfspraken().add(new Afspraak(14, "Voetbal")); // UnsupportedOperationException
 
         //Bovenstaande 2 calls leveren dat bij (**) niet op:
         System.out.println("Toch afspraak toegevoegd :s -> #" + dag1.aantalAfspraken());

@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.collecties.map;
 
 import org.junit.Test;
 
@@ -7,16 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-//Interface java.util.Map<K,V>
-//   https://docs.oracle.com/javase/8/docs/api/java/util/Map.html
-//
+//Map<K,V>:
 //An object that maps keys to values. A map cannot contain duplicate
 //keys; each key can map to at most one value.
 
-//Class java.util.HashMap<K,V>
-//   https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html
-//Implements Map<K,V>
-//
+//HashMap<K,V>:
 //Hash table based implementation of the Map interface. This implementation
 //provides all of the optional map operations, and permits null values and
 //the null key. This class makes no guarantees as to the order of the map.

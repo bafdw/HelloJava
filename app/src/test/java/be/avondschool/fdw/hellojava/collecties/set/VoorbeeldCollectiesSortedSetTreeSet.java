@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.collecties.set;
 
 import android.support.annotation.NonNull;
 
@@ -11,19 +11,13 @@ import java.util.TreeSet;
 
 import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
 
-//Interface java.util.SortedSet<E>
-//   https://docs.oracle.com/javase/8/docs/api/java/util/SortedSet.html
-//Extends Set<E>
-//
+//SortedSet<E>:
 //A Set that further provides a total ordering on its elements. The elements
 //are ordered using their natural ordering, or by a Comparator typically
 //provided at sorted set creation time. The set's iterator will traverse
 //the set in ascending element order.
 
-//Class java.util.TreeSet<E>
-//   https://docs.oracle.com/javase/8/docs/api/java/util/TreeSet.html
-//Implements SortedSet<E>
-//
+//TreeSet<E>:
 //The elements are ordered using their natural ordering, or by a Comparator
 //provided at set creation time, depending on which constructor is used.
 //This implementation provides guaranteed log(n) time cost for the basic
@@ -36,7 +30,7 @@ public class VoorbeeldCollectiesSortedSetTreeSet {
         Person woman2 = new Person();  woman2.setName("Mia");
 
         Person[] people1 = {man1, woman1, woman2};
-        //of voluit: Customer[] people1 = new Customer[]{man1, woman1, woman2};
+        //of voluit: Person[] people1 = new Person[]{man1, woman1, woman2};
         List<Person> people2 = Arrays.asList(people1);
         SortedSet<Person> sortedPeople = new TreeSet<>(people2);
         for(Person p: sortedPeople)

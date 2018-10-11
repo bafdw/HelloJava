@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.collecties.map;
 
 import org.junit.Test;
 
@@ -9,10 +9,7 @@ import java.util.TreeMap;
 
 import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
 
-//Inteface java.util.SortedMap<K,V>
-//   https://docs.oracle.com/javase/8/docs/api/java/util/SortedMap.html
-//Extends Map<K,V>
-//
+//SortedMap<K,V>:
 //A Map that further provides a total ordering on its keys. The map is
 //ordered according to the natural ordering of its keys, or by a Comparator
 //typically provided at sorted map creation time. This order is reflected
@@ -21,10 +18,7 @@ import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
 //All keys inserted into a sorted map must implement the Comparable
 //interface (or be accepted by the specified comparator).
 
-//Class java.util.TreeMap<K,V>
-//   https://docs.oracle.com/javase/8/docs/api/java/util/TreeMap.html
-//Implements SortedMap<K,V>
-//
+//TreeMap<K,V>:
 //The map is sorted according to the natural ordering of its keys, or by
 //a Comparator provided at map creation time, depending on which constructor
 //is used.

@@ -2,6 +2,7 @@ package be.avondschool.fdw.hellojava.gelijkheid;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Voorbeeld {
@@ -14,6 +15,9 @@ public class Voorbeeld {
         System.out.println(p1 == p2); // true
         System.out.println(p1 == p3); // false
         System.out.println(p1.equals(p3)); // true
+
+        ArrayList<Persoon> collectionX = new ArrayList<Persoon>(); collectionX.add(p1);
+        System.out.println(collectionX.contains(p1)); // true
     }
 }
 class Persoon {

@@ -6,16 +6,16 @@ public class Voorbeeld {
     @Test public void main() {
         Artikel artikel1 = new Artikel();
 
-        WerpExceptieOpEnHandelZeAf(artikel1, 15);
+        methodDieExceptieTriggertEnAfhandelt(artikel1, 15);
 
         try {
-            WerptExceptieOpEnHandelZeNietAf(artikel1, 15);
+            methodDieExceptieTriggertMaarZeNietAfhandelt(artikel1, 15);
             System.out.println("Btw ingesteld op: " + artikel1.getBtw());
         } catch (BtwNietOkException e) {
             System.out.println("Fout bij instellen van btw.");
         }
     }
-    static void WerpExceptieOpEnHandelZeAf(Artikel a, int btw) {
+    static void methodDieExceptieTriggertEnAfhandelt(Artikel a, int btw) {
         try {
             a.setBtw(btw);
             System.out.println("Btw ingesteld op: " + a.getBtw());}
@@ -23,7 +23,7 @@ public class Voorbeeld {
             System.out.println("Fout bij instellen van btw.");
         }
     }
-    static void WerptExceptieOpEnHandelZeNietAf(Artikel a, int btw) throws BtwNietOkException {
+    static void methodDieExceptieTriggertMaarZeNietAfhandelt(Artikel a, int btw) throws BtwNietOkException {
         a.setBtw(btw);
     }
 }

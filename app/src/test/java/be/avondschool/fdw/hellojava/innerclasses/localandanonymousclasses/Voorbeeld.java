@@ -1,29 +1,14 @@
 package be.avondschool.fdw.hellojava.innerclasses.localandanonymousclasses;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
-
-//Oracle - Java Documentation - The Java Tutorials - Inner Classes:
-//   https://docs.oracle.com/javase/tutorial/java/javaOO/innerclasses.html
-//Oracle - Java Documentation - The Java Tutorials - Anonymous Classes:
-//   https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html
-//Oracle - Java Documentation - The Java Tutorials - Local Classes:
-//   https://docs.oracle.com/javase/tutorial/java/javaOO/localclasses.html
 
 public class Voorbeeld {
     @Test
     public void main() {
-        Person man1 = new Person();
-        man1.setName("John");
-        Person woman1 = new Person();
-        woman1.setName("Jane");
-        Person woman2 = new Person();
-        woman2.setName("Mia");
+        Person man1 = new Person();         man1.setName("John");
+        Person woman1 = new Person();       woman1.setName("Jane");
+        Person woman2 = new Person();       woman2.setName("Mia");
 
         People3 people3 = new People3();
         people3.addMan(man1);

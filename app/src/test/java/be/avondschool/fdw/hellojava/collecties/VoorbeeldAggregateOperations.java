@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.collecties;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 //Oracle - Java SE8 Referential Documentation - Package java.util.stream:
 //   https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
 
-public class VoorbeeldCollectiesAggregateOperations {
+public class VoorbeeldAggregateOperations {
     @Test public void main() {
         List<Customer> customers = Arrays.asList(
                 new Customer("John", 48, Customer.Sex.MALE),

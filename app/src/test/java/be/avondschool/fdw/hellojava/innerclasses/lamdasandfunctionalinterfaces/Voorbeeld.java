@@ -7,9 +7,6 @@ import java.util.function.Consumer;
 import be.avondschool.fdw.hellojava.innerclasses.iterator.People1;
 import be.avondschool.fdw.hellojava.innerclasses.iterator.Person;
 
-//Oracle - Java Documentation - The Java Tutorials - Lambda Expressions:
-//   https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html
-
 public class Voorbeeld {
     @Test public void main(){
         Person man1 = new Person();    man1.setName("John");

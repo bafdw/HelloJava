@@ -14,7 +14,7 @@ public class Voorbeeld {
     }
 }
 class KlasseA {
-    private final int veldX = 1; // hier initialiseren
+    private final int veldX;// = 1; // hier initialiseren
     private int veldY = 2;       // hier initialiseren
 
     { // dit is een initialisatie blok
@@ -25,7 +25,7 @@ class KlasseA {
     }
 
     public KlasseA(){
-        //veldX = 1; // xor hier initialiseren
+        veldX = 1; // xor hier initialiseren
         veldY = 4;   //  or hier initialiseren
     }
 

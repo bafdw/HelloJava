@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava.temporalpackage;
+package be.avondschool.fdw.hellojava.temporal;
 
 import org.junit.Test;
 

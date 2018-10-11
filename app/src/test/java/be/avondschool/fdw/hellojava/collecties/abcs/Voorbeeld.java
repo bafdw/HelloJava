@@ -1,4 +1,4 @@
-package be.avondschool.fdw.hellojava;
+package be.avondschool.fdw.hellojava.collecties.abcs;
 
 import org.junit.Test;
 
@@ -12,63 +12,62 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class VoorbeeldAbcs {
+public class Voorbeeld {
     @Test public void main(){
         // - AbstractCollection
-        //   https://docs.oracle.com/javase/8/docs/api/java/util/AbstractCollection.html
-        TestAbstractCollectionImpl();
+        AbstracteCollectieVoorbeeld();
+
+        // AbstractCollection afgeleiden:
         // - AbstractSet
-        //   https://docs.oracle.com/javase/8/docs/api/java/util/AbstractSet.html
-        TestAbstractSetImpl();
+        AbstracteSetVoorbeeld();
         // - AbstractList
-        //   https://docs.oracle.com/javase/8/docs/api/java/util/AbstractList.html
-        TestAbstractListImpl();
+        AbstracteListVoorbeeld();
 
-        //overige AbstractCollection afgeleiden zijn:
-        //- AbstractSequentialList: basis voor performante invoeg en verwijder List implementaties
-        //  https://docs.oracle.com/javase/8/docs/api/java/util/AbstractSequentialList.html
+        //enkele overige AbstractCollection afgeleiden zijn:
         //- AbstractQueue: basis voor eigen Queue implementaties(.offer, .peek ,.poll)
-        //  https://docs.oracle.com/javase/8/docs/api/java/util/AbstractQueue.html
         //- AbstractMap: basis voor eigen Map implementaties
-        //  https://docs.oracle.com/javase/8/docs/api/java/util/AbstractMap.html
     }
-    static void TestAbstractCollectionImpl(){
-        Collection<String> cc = new CustomColl();
-        //Itereren of uitlezen (.size, .contains, .containsAll) kan:
-        PrintIterable(cc);
-        System.out.println(cc.contains("Informatica")); //kan
-        //Editeren (.add, .remove, .clear, ...) kan niet:
-        //cc.add("Bloemschikken"); //UnsupportedOperationException
+    static void AbstracteCollectieVoorbeeld(){
+        Collection<String> opleidingen1 = new OpleidingenCollectie();
 
-        CustomModColl cmc = new CustomModColl();
-        cmc.add("Bloemschikken");
-        PrintIterable(cmc);
+        //Itereren of uitlezen (.size, .contains, .containsAll) kan:
+        PrintIterable(opleidingen1);
+        System.out.println(opleidingen1.contains("Informatica")); //kan
+
+        //Editeren (.add, .remove, .clear, ...) kan niet:
+        //opleidingen1.add("Bloemschikken"); //UnsupportedOperationException
+
+        AanpasbareOpleidingenCollectie opleidingen2 = new AanpasbareOpleidingenCollectie();
+        opleidingen2.add("Bloemschikken");
+        PrintIterable(opleidingen2);
     }
-    static void TestAbstractSetImpl(){
-        Set<String> cms = new CustomModSet();
+    static void AbstracteSetVoorbeeld(){
+        Set<String> opleidingen1 = new AanpasbareOpleidingenSet();
         //Editeren (.add, .remove, .clear, ...) kan by default niet
         //(UnsupportedOperationException), tenzij overschreven:
-        cms.add("Informatica");   // kan maar voegt niet toe
-        cms.add("Chemie"); // kan en voegt toe
+        opleidingen1.add("Informatica");   // kan maar voegt niet toe
+        opleidingen1.add("Chemie"); // kan en voegt toe
         //Itereren of uitlezen (.size, .contains, .containsAll) kan:
-        PrintIterable(cms);
+        PrintIterable(opleidingen1);
     }
-    static void TestAbstractListImpl(){
-        List<String> cl = new CustomList();
+    static void AbstracteListVoorbeeld(){
+        List<String> opleidingen1 = new OpleidingenList();
+
         //Itereren of uitlezen (.size, .contains, .containsAll) kan:
-        PrintIterable(cl);
-        System.out.println(cl.indexOf("Informatica")); // type list members
-        System.out.println(cl.get(0));                 // type list members
+        PrintIterable(opleidingen1);
+        System.out.println(opleidingen1.indexOf("Informatica")); // typische list members
+        System.out.println(opleidingen1.get(0));                 // typische list members
+
         //Editeren (.set, .add, .remove, .clear, ...) kan niet
         //(UnsupportedOperationException):
-        //cl.add("Bloemschikken");
-        //cl.set(0, "Nieuwe waarde");
+        //opleidingen1.add("Bloemschikken");
+        //opleidingen1.set(0, "Nieuwe waarde");
 
         //Tenzij overschreven:
-        CustomModList cml = new CustomModList();
-        cml.add("Bloemschikken");
-        cml.set(0, "Chemie");
-        PrintIterable(cml);
+        AanpasbareOpleidingenList opleidingen2 = new AanpasbareOpleidingenList();
+        opleidingen2.add("Bloemschikken");
+        opleidingen2.set(0, "Chemie");
+        PrintIterable(opleidingen2);
     }
     static void PrintIterable(Iterable<String> coll){
         Iterator<String> items = coll.iterator();
@@ -79,7 +78,8 @@ public class VoorbeeldAbcs {
         System.out.println();
     }
 }
-class CustomColl extends AbstractCollection<String> {
+
+class OpleidingenCollectie extends AbstractCollection<String> {
     //java.util.AbstractCollection<E> implemented Iterable<E>, Collection<E>
     //supertype of: AbstractList<E>, AbstractQueue<E>, AbstractSet<E>, ArrayDeque<E>
     //Neither a Set nor a List.
@@ -96,10 +96,11 @@ class CustomColl extends AbstractCollection<String> {
     //collection constructor, as per the recommendation in the Collection
     //interface specification.
 }
-class CustomModColl extends CustomColl {
+class AanpasbareOpleidingenCollectie extends OpleidingenCollectie {
     {
-        //Maak van de ArrayList een modifyable versie:
+        //Maak van de ArrayList een modifyable versie...
         items = new ArrayList<>(items);
+        //...zodat onderstaande add kan werken (geen exception oplevert).
     }
 
     //Overschrijf bijkomend members als .add, .remove, .clear, ... om ze modifyable te maken.
@@ -108,7 +109,8 @@ class CustomModColl extends CustomColl {
         return items.add(s);
     }
 }
-class CustomModSet extends AbstractSet<String> {
+
+class AanpasbareOpleidingenSet extends AbstractSet<String> {
     //java.util.AbstractSet<E> extends AbstractCollection<E>
     //                         implements Iterable<E>, Collection<E>, Set<E>
     //The process of implementing a set by extending this class is identical
@@ -130,7 +132,8 @@ class CustomModSet extends AbstractSet<String> {
         return false;
     }
 }
-class CustomList extends AbstractList<String> {
+
+class OpleidingenList extends AbstractList<String> {
     //java.util.AbstractList<E> extends AbstractCollection<E>
     //                          implements Iterable<E>, Collection<E>, List<E>
     //This class provides a skeletal implementation of the List interface to
@@ -146,7 +149,7 @@ class CustomList extends AbstractList<String> {
     //not have to provide an iterator implementation; the iterator are implemented
     //by this class, on top of the "random access" methods (.get, .size).
 }
-class CustomModList extends AbstractList<String> {
+class AanpasbareOpleidingenList extends AbstractList<String> {
     @Override public String get(int index) { return items.get(index); }
     @Override public int size() { return items.size(); }
 
